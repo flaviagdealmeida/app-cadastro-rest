@@ -3,16 +3,20 @@ package br.com.appcadastrorest.data.vo.v1;
 import java.io.Serializable;
 import java.util.Objects;
 
+import org.springframework.hateoas.RepresentationModel;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.github.dozermapper.core.Mapping;
 
-@JsonPropertyOrder({"email", "nomeSocial", "sobrenome", "nome", "id"})
-public class PessoaVO implements Serializable{
+@JsonPropertyOrder({"ativo", "email", "nomeSocial", "sobrenome", "nome", "id"})
+public class PessoaVO extends RepresentationModel<PessoaVO> implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
-	@JsonProperty("PessoaId")
-	private Long id;
+	@Mapping("id")
+	@JsonProperty("id")
+	private Long key;
 	
 	@JsonProperty("first_name")
 	private String nome;
@@ -23,30 +27,23 @@ public class PessoaVO implements Serializable{
 	@JsonProperty("social_name")
 	private String nomeSocial;
 	
-	@JsonProperty("E-mail")
+	@JsonProperty("e-mail")
 	private String email;
+	
+	@JsonProperty("ativo")
+	private Boolean ativo;
+	
 	
 	public PessoaVO() {
 		
 	}
 	
-	public PessoaVO(Long id, String nome, String sobrenome, String nomeSocial, String email) {
-		super();
-		this.id = id;
-		this.nome = nome;
-		this.sobrenome = sobrenome;
-		this.nomeSocial = nomeSocial;
-		this.email = email;
+	public Long getKey() {
+		return key;
 	}
 
-
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
+	public void setKey(Long key) {
+		this.key = key;
 	}
 
 	public String getNome() {
@@ -81,27 +78,36 @@ public class PessoaVO implements Serializable{
 		this.email = email;
 	}
 
+	public Boolean getAtivo() {
+		return ativo;
+	}
+
+	public void setAtivo(Boolean ativo) {
+		this.ativo = ativo;
+	}
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(email, id, nome, nomeSocial, sobrenome);
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + Objects.hash(ativo, email, key, nome, nomeSocial, sobrenome);
+		return result;
 	}
 
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (obj == null)
+		if (!super.equals(obj))
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
 		PessoaVO other = (PessoaVO) obj;
-		return Objects.equals(email, other.email) && Objects.equals(id, other.id) && Objects.equals(nome, other.nome)
+		return Objects.equals(ativo, other.ativo) && Objects.equals(email, other.email)
+				&& Objects.equals(key, other.key) && Objects.equals(nome, other.nome)
 				&& Objects.equals(nomeSocial, other.nomeSocial) && Objects.equals(sobrenome, other.sobrenome);
 	}
-	
-	
-	
-	
+
 	
 	
 	

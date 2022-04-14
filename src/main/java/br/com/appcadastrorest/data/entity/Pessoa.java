@@ -32,6 +32,10 @@ public class Pessoa implements Serializable{
 	@Column(nullable = false, length=100)
 	private String email;
 	
+	@Column(nullable = false)
+	private Boolean ativo;
+	
+	
 	public Pessoa() {}
 
 	public Long getId() {
@@ -74,9 +78,17 @@ public class Pessoa implements Serializable{
 		this.email = email;
 	}
 
+	public Boolean getAtivo() {
+		return ativo;
+	}
+
+	public void setAtivo(Boolean ativo) {
+		this.ativo = ativo;
+	}
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(email, id, nome, nomeSocial, sobrenome);
+		return Objects.hash(ativo, email, id, nome, nomeSocial, sobrenome);
 	}
 
 	@Override
@@ -88,11 +100,12 @@ public class Pessoa implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		Pessoa other = (Pessoa) obj;
-		return Objects.equals(email, other.email) && Objects.equals(id, other.id) && Objects.equals(nome, other.nome)
-				&& Objects.equals(nomeSocial, other.nomeSocial) && Objects.equals(sobrenome, other.sobrenome);
+		return Objects.equals(ativo, other.ativo) && Objects.equals(email, other.email) && Objects.equals(id, other.id)
+				&& Objects.equals(nome, other.nome) && Objects.equals(nomeSocial, other.nomeSocial)
+				&& Objects.equals(sobrenome, other.sobrenome);
 	}
 
-	
+
 	
 
 }
